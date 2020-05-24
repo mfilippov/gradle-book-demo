@@ -131,3 +131,25 @@ task("treeVisitor") {
         })
     }
 }
+
+task<Copy>("simpleCopy") {
+    from("src/xml")
+    include("*.xml")
+    exclude("*.txt")
+    into { file("definitions") }
+}
+
+task<Zip>("archiveDist") {
+    from("definitions")
+    into("files")
+    destinationDirectory.set(file("$buildDir/zips"))
+    archiveFileName.set("dist-files.zip")
+}
+
+task<Tar>("tarFiles") {
+    from("definitions")
+    into("files")
+    destinationDirectory.set(file("$buildDir/tarballs"))
+    archiveFileName.set("dist-files.tar.gz")
+    compression = Compression.GZIP
+}
