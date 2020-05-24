@@ -3,6 +3,8 @@ defaultTasks("second", "convert")
 project.description = "Simple project"
 project.version = "1.0"
 
+val dir = project.file(file("config"), PathValidation.DIRECTORY)
+
 task("first") {
     description = "My first task"
     group = "base"
@@ -65,8 +67,8 @@ tasks.addRule("Pattern: ping<ID>") {
 }
 
 task("convert") {
-    val source = File("source.xml")
-    val output = File("output.txt")
+    val source = file("source.xml")
+    val output = file("output.txt")
 
     inputs.file(source)
     outputs.files(output)
@@ -87,8 +89,10 @@ task("convert") {
     }
 }
 
+val taskOutputFiles = files(tasks.named("convert"))
+
 task("createVersionDir") {
-    val outputDir = File("output")
+    val outputDir = file("output")
 
     inputs.property("version", project.version)
 
@@ -109,5 +113,21 @@ task("convertFiles") {
 
     doLast {
         println("Running convertFiles")
+    }
+}
+
+task("treeVisitor") {
+    val projectFiles = fileTree(".")
+    doLast {
+        projectFiles.visit(object: FileVisitor {
+            override fun visitFile(fileDetails: FileVisitDetails) {
+                println("File: ${fileDetails.path}, size: ${fileDetails.size}")
+            }
+
+            override fun visitDir(dirDetails: FileVisitDetails) {
+                println("Directory: ${dirDetails.path}")
+            }
+
+        })
     }
 }
