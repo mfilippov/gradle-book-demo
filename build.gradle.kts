@@ -1,7 +1,8 @@
 defaultTasks("second", "convert")
 
-project.description = "Simple project"
-project.version = "1.0"
+description = "Simple project"
+version = "1.0"
+group = "Sample"
 
 val dir = project.file(file("config"), PathValidation.DIRECTORY)
 
@@ -152,4 +153,16 @@ task<Tar>("tarFiles") {
     destinationDirectory.set(file("$buildDir/tarballs"))
     archiveFileName.set("dist-files.tar.gz")
     compression = Compression.GZIP
+}
+
+task("defaultProperties") {
+    println("Project: $project")
+    println("Name: $name")
+    println("Path: $path")
+    println("Project directory: $projectDir")
+    println("Build directory: $buildDir")
+    println("Version: $version")
+    println("Group: ${project.group}")
+    println("Description: ${project.description}")
+    println("AntBuilder: ${ant}")
 }
