@@ -1,0 +1,1 @@
+project.description = "Simple project"

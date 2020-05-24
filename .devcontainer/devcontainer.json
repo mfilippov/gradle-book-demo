@@ -1,0 +1,14 @@
+{
+	"name": "Java Developer",
+	"dockerFile": "Dockerfile",
+
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+
+	"extensions": [
+		"mathiasfrohlich.kotlin",
+		"richardwillis.vscode-gradle",
+		"ms-azuretools.vscode-docker"
+	]
+}
