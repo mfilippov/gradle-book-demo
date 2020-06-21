@@ -4,13 +4,23 @@ description = "Simple project"
 version = "1.0"
 group = "Sample"
 
-val dir = project.file(file("config"), PathValidation.DIRECTORY)
+//val dir = project.file(file("config"), PathValidation.DIRECTORY)
 
 task("first") {
     description = "My first task"
     group = "base"
     doLast {
         println("Run ${this.name}")
+    }
+}
+
+task("redirectLogging"){
+    doFirst {
+        println("Start task redirectLogging")
+    }
+    doLast{
+        logging.captureStandardOutput(LogLevel.INFO)
+        println("End task redirectLogging")
     }
 }
 
